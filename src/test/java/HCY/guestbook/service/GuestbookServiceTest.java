@@ -1,11 +1,12 @@
 package HCY.guestbook.service;
 
 import HCY.guestbook.dto.GuestbookDTO;
+import HCY.guestbook.dto.PageRequestDTO;
+import HCY.guestbook.dto.PageResponseDTO;
+import HCY.guestbook.entity.Guestbook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class GuestbookServiceTest {
@@ -24,6 +25,20 @@ class GuestbookServiceTest {
 
         System.out.println(guestbookService.register(guestbookDTO));
 
+    }
+
+    @Test
+    public void testList() throws Exception {
+        //given
+        PageRequestDTO requestDto = PageRequestDTO.builder().page(1).size(10).build();
+
+        //when
+        PageResponseDTO<GuestbookDTO, Guestbook> result = guestbookService.getList(requestDto);
+
+        //then
+        for(GuestbookDTO dto : result.getDtoList()){
+            System.out.println(dto);
+        }
     }
 
 }

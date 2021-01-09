@@ -1,11 +1,18 @@
 package HCY.guestbook.service;
 
 import HCY.guestbook.dto.GuestbookDTO;
+import HCY.guestbook.dto.PageRequestDTO;
+import HCY.guestbook.dto.PageResponseDTO;
 import HCY.guestbook.entity.Guestbook;
 import HCY.guestbook.repository.GuestbookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.function.Function;
 
 @Service
 @Log4j2
@@ -27,5 +34,13 @@ public class GuestbookServiceImpl implements GuestbookService{
         guestbookRepository.save(entity);
 
         return entity.getId();
+    }
+
+    @Override
+    public PageResponseDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDto) {
+        Pageable pageable = requestDto.getPageable(Sort.by("id").descending());
+        Page<Guestbook> result = guestbookRepository.findAll(pageable);
+        Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDto(entity));
+        return new PageResponseDTO<>(result, fn);
     }
 }
