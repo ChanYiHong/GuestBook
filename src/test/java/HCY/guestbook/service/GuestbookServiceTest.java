@@ -36,9 +36,19 @@ class GuestbookServiceTest {
         PageResponseDTO<GuestbookDTO, Guestbook> result = guestbookService.getList(requestDto);
 
         //then
+
+        System.out.println("PREV : " + result.isPrev());
+        System.out.println("NEXT : " + result.isNext());
+        System.out.println("TOTAL : " + result.getTotalPage());
+
+        System.out.println("==============================");
+
         for(GuestbookDTO dto : result.getDtoList()){
             System.out.println(dto);
         }
-    }
 
+        System.out.println("==============================");
+
+        result.getPageList().forEach(System.out::println);
+    }
 }
