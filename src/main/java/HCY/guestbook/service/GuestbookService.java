@@ -11,6 +11,8 @@ public interface GuestbookService {
 
     PageResponseDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDto);
 
+    GuestbookDTO read(Long id);
+
     default Guestbook dtoToEntity(GuestbookDTO dto) {
         Guestbook entity = Guestbook.builder()
                 .id(dto.getId())
