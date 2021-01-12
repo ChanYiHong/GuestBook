@@ -37,10 +37,12 @@
                    th:value="${#temporals.format(dto.modifiedDate, 'yyyy/MM/dd')}" readonly>
         </div>
 
-        <a th:href="@{/guestbook/modify(id = ${dto.id}, page = ${requestDTO.page})}">
+        <a th:href="@{/guestbook/modify(id = ${dto.id}, page = ${requestDTO.page},
+                    type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
             <button type="button" class="btn btn-primary">Modify</button>
         </a>
-        <a th:href="@{/guestbook/list(page=${requestDTO.page})}">
+        <a th:href="@{/guestbook/list(page=${requestDTO.page},
+                    type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
             <button type="button" class="btn btn-primary">List</button>
         </a>
 

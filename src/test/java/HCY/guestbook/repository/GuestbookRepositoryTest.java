@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @SpringBootTest
 class GuestbookRepositoryTest {
@@ -97,6 +98,18 @@ class GuestbookRepositoryTest {
 
         result.stream().forEach(guestbook -> {
             System.out.println(guestbook);
+        });
+
+    }
+
+    @Test
+    public void sortTest() throws Exception {
+        //given
+        Sort sort = Sort.by("id").descending().and(Sort.by("name").ascending());
+
+        sort.get().forEach(s -> {
+            System.out.println(s.getProperty());
+            System.out.println(s.getDirection());
         });
 
     }
